@@ -1,6 +1,5 @@
 
 const reducer = ( state= [], action) => {
-    // console.log(state, 'state', action, 'action');
     
       switch (action.type) {
   

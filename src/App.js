@@ -3,9 +3,6 @@ import './App.css';
 import ComputersList from './components/ComputersList';
 
 
-
-
-
 class App extends Component {
 
   
@@ -14,6 +11,7 @@ class App extends Component {
       <div className="App">
 
       <ComputersList />
+
      
       </div>
     );

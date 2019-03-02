@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ModelDetails from './ModelDetails'
 import {connect} from 'react-redux'
 
 
@@ -12,51 +11,53 @@ const data = { "Ivel Z3": { manufacturer: "Ivasim", year: 1969, origin: "Croatia
    const dataToArray = dataKeys.map((element) => {
      return {name:element,...data[element]}
    })
-// //    console.log(dataToArray);
+
 
 class ComputersList extends React.Component {
     state = {
         value: ''
     }
 
-    updateSelection = this.updateSelection.bind(this);
 
+    updateSelection = this.updateSelection.bind(this);
+    
     updateSelection(event) {
         this.setState({value: event.target.value});
+        
       }
+    
 
     handleClick=() => {
-        console.log(this.state)
+        const payload = dataToArray.filter(element=>this.state.value===element.name && element.year).reduce((acc,curr)=>acc={...curr},{})
         this.props.dispatch({
             type:'ADD_MODEL',
-            payload:{
-                name:this.state
-            }
-        })
-
+            payload:payload}
+            )
     }  
-
-   
 
 
     render() {
-        return(
-    <div>
-       {/* <ModelDetails props={this.model}/> */}
-        <select value = {this.state.value} onChange={this.updateSelection}>
-
-            <option value=''>--Pick a model--</option>
-
-            {dataToArray.map(model=><option key={model.name} value={model.name}>{`${model.name} (${model.year})`}</option>)}
+            return(
+                <div>
+                   
+                    <select value = {this.state.value} onChange={this.updateSelection}>
             
-      </select>
-      <button onClick={this.handleClick}>Button</button>
-      
-    </div>
-  
-        )  
+                        <option value=''>--Pick a model--</option>
+            
+                        {dataToArray.map(model=><option key={model.name} value={model.name}>{`${model.name} (${model.year})`}</option>)}
+                        
+                  </select>
+                  <button onClick={this.handleClick}>Button</button>
+                  
+                </div>)
+        }   
     }
  
-}
-
-export default connect(null,null)(ComputersList)
+const mapStateToProps = (state) => {    
+    console.log("thestate", state);
+    
+    return {
+      models: state
+    }
+  }
+export default connect(mapStateToProps)(ComputersList)
