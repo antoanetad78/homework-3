@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import ComputersList from './components/ComputersList';
 
 const data = { "Ivel Z3": { manufacturer: "Ivasim", year: 1969, origin: "Croatia" },
  "Bally Astrocade": { manufacturer: "Bally Consumer Products", year: 1977, origin: "USA" },
@@ -12,8 +13,6 @@ const dataToArray = dataKeys.map((element) => {
   return {name:element,year: data[element].year}
 })
 
-console.log(dataToArray);
-
 
 class App extends Component {
 
@@ -21,10 +20,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <select>
-          <option value=''>--Pick a model--</option>
-          {dataToArray.map(model=><option key={model.name} value={model.name}>{`${model.name} (${model.year})`}</option>)}
-        </select>
+
+      <ComputersList data={dataToArray}/>
+    
       </div>
     );
   }
